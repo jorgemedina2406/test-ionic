@@ -1,0 +1,39 @@
+<ion-menu contentId="content" type="overlay">
+
+    <ion-header>
+        <ion-toolbar class="ion-text-center ion-padding">
+            <label for="file-upload1" class="image">
+                    Test Tuten
+                </label>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+
+        <ng-container *ngFor="let p of pages">
+
+            <!-- Standard Menu Item -->
+            <ion-menu-toggle *ngIf="p.url">
+                <ion-item (click)="navigatePage(p.url)" routerLinkActive="active">
+                    <ion-icon color="primary" [src]="p.src" [name]="p.icon" slot="start"></ion-icon>
+                    <ion-label>
+                        {{ p.title }}
+                    </ion-label>
+                </ion-item>
+            </ion-menu-toggle>
+            <!-- Item with Children -->
+
+        </ng-container>
+
+        <ion-menu-toggle>
+            <div *ngIf="authService.isAuthenticated()" class="ion-padding-bottom" style="position: absolute; bottom: 0; width: 100%; border-radius: 0px">
+                <ion-button style="bottom: 0; width: 100%; margin: 0px; border-radius: 0px" size="" color="primary" type="button" expand="full" (click)="logout()">
+                    <ion-icon color="light" src="../assets/icon/stand-by.svg" slot="start"></ion-icon>
+                    Cerrar sesión</ion-button>
+            </div>
+        </ion-menu-toggle>
+    </ion-content>
+
+</ion-menu>
+
+<ion-router-outlet id="content" main></ion-router-outlet>

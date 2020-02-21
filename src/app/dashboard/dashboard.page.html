@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-segment class="ion-padding-top" style="margin-top: 5px;">
+            Test Tuten
+        </ion-segment>
+        <ion-buttons slot="end" class="notification-icon-button ion-padding">
+            <ion-icon slot="icon-only" src="../assets/icon/stand-by.svg" (click)="logout()"></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="light">
+        <div class="searchbar">
+
+            <ion-searchbar type="text" debounce="500" name="searchText" placeholder="BookingId o Precio..." [(ngModel)]="searchText" animated></ion-searchbar>
+
+        </div>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ng-container *ngFor="let item of info | filter:{bookingId:searchText, bookingPrice:searchText, bookingTime:searchText}; let i=index;">
+        <ion-card>
+            <ion-card-content no-padding>
+                <ion-row class="ion-text-center">
+                    <ion-col size="4" class="pl-3 py-3">
+                        <h5>BookingId</h5>
+                        <small>{{ item.bookingId }}</small>
+                    </ion-col>
+                    <ion-col size="4" class="pl-3 py-3">
+                        <h5>Cliente</h5>
+                        <small>{{ item.tutenUserClient.firstName }}</small>
+                    </ion-col>
+                    <ion-col size="4" class="pl-3 py-3">
+                        <h5>Fecha de Creación</h5>
+                        <small>{{ item.bookingTime | date }}</small>
+                    </ion-col>
+                    <ion-col size="12" class="pl-3 py-3">
+                        <h5>Direccion</h5>
+                        <small>{{ item.locationId.streetAddress }}</small>
+                    </ion-col>
+                    <ion-col size="12" class="pl-3 py-3">
+                        <h5>Precio</h5>
+                        <ion-badge color="primary"><small>{{ item.bookingPrice }}</small></ion-badge>
+                    </ion-col>
+                </ion-row>
+            </ion-card-content>
+        </ion-card>
+    </ng-container>
+</ion-content>
